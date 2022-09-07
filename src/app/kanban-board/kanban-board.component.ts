@@ -114,7 +114,7 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  onCickEdit(title: string, content: string): void {
+  onClickEdit(title: string, content: string): void {
     this.formCard.patchValue({ titulo: title, conteudo: content });
   }
 
@@ -126,5 +126,15 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
     };
 
     this.updateCard(card);
+  }
+
+  get disableEditButton(): boolean {
+    if (this.showNewCard) {
+      return true;
+    }
+
+    return this.editDoing
+      .concat(this.editDone.concat(this.editTodo))
+      .some((value: boolean) => value);
   }
 }
