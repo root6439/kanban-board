@@ -70,6 +70,14 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
     });
   }
 
+  deleteCard(cardId: number): void {
+    this.service$ = this.service
+      .deleteCards(cardId)
+      .subscribe((resp: Card[]) => {
+        this.disaggregateCards(resp);
+      });
+  }
+
   drop(event: CdkDragDrop<Card[]>, target: number) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
