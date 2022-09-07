@@ -10,6 +10,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoginService } from './login.service';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -18,27 +19,28 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule],
+      imports: [RouterTestingModule, HttpClientTestingModule, MatToolbarModule],
       declarations: [AppComponent],
       providers: [LoginService, HttpClient],
     }).compileComponents();
+  });
 
-    service = TestBed.inject(LoginService);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    app = fixture.componentInstance;
   });
 
   it('should create the app', () => {
-    fixture = TestBed.createComponent(AppComponent);
-    app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it('should call localStorage.setItem', fakeAsync(() => {
+  it('should set item in localStorage', fakeAsync(() => {
+    service = TestBed.inject(LoginService);
     spyOn(service, 'login').and.returnValue(of('123'));
-    spyOn(window.localStorage, 'setItem');
 
     app.login();
     tick();
 
-    expect(window.localStorage.setItem).toHaveBeenCalledWith('token', '123');
+    expect(localStorage.getItem('token')).toBe('123');
   }));
 });
