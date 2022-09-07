@@ -34,9 +34,7 @@ export class KanbanBoardComponent implements OnInit {
   constructor(private service: KanbanBoardService) {}
 
   ngOnInit(): void {
-    this.service.getCards().subscribe((cards: Card[]) => {
-      this.disaggregateCards(cards);
-    });
+    this.getCards();
   }
 
   disaggregateCards(cards: Card[]): void {
@@ -45,14 +43,20 @@ export class KanbanBoardComponent implements OnInit {
     this.cardsDone = cards.filter((card: Card) => card.lista == List.DONE);
   }
 
+  getCards(): void {
+    this.service.getCards().subscribe((cards: Card[]) => {
+      this.disaggregateCards(cards);
+    });
+  }
+
   createCard(): void {
     let card: Card = {
       ...this.formCard.value,
       lista: List.TODO,
     };
     this.service$ = this.service.postCards(card).subscribe((resp: Card) => {
-      console.log(resp);
-      
+      this.getCards();
+      this.showNewCard = false;
     });
   }
 

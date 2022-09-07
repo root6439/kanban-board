@@ -35,6 +35,11 @@ mat-form-field {
 mat-card {
   border: solid 1px #ccc;
   margin: 8px 0;
+  min-height: 48px;
+}
+
+p {
+  line-break: anywhere;
 }
 
 .example-list {
