@@ -23,12 +23,13 @@ export class KanbanBoardComponent implements OnInit {
   service$: Subscription = new Subscription();
 
   formCard: FormGroup = new FormGroup({
-    title: new FormControl<string>(null, Validators.required),
-    content: new FormControl<string>(null, Validators.required),
+    titulo: new FormControl<string>(null, Validators.required),
+    conteudo: new FormControl<string>(null, Validators.required),
   });
 
   loadingNewCard: boolean = false;
   showNewCard: boolean = false;
+  loadingCard: boolean = false;
 
   constructor(private service: KanbanBoardService) {}
 
@@ -44,7 +45,16 @@ export class KanbanBoardComponent implements OnInit {
     this.cardsDone = cards.filter((card: Card) => card.lista == List.DONE);
   }
 
-  createCard(): void {}
+  createCard(): void {
+    let card: Card = {
+      ...this.formCard.value,
+      lista: List.TODO,
+    };
+    this.service$ = this.service.postCards(card).subscribe((resp: Card) => {
+      console.log(resp);
+      
+    });
+  }
 
   drop(event: CdkDragDrop<Card[]>) {
     if (event.previousContainer === event.container) {

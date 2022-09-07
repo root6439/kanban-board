@@ -32,13 +32,17 @@ mat-form-field {
   vertical-align: top;
 }
 
-.example-list {
+mat-card {
   border: solid 1px #ccc;
+  margin: 8px 0;
+}
+
+.example-list {
   min-height: 60px;
-  background: white;
   border-radius: 4px;
   overflow: hidden;
   display: block;
+  cursor: move;
 }
 
 .example-box {
