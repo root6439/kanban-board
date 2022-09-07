@@ -19,10 +19,13 @@ export class KanbanBoardService {
   }
 
   putCards(card: Card): Observable<Card> {
-    return this.http.put<Card>(`${environment.serverUrl}/cards/${card.id}`, card);
+    return this.http.put<Card>(
+      `${environment.serverUrl}/cards/${card.id}`,
+      card
+    );
   }
 
-  deleteCards(cardId: number): Observable<Card[]> {
+  deleteCards(cardId: string): Observable<Card[]> {
     return this.http.delete<Card[]>(`${environment.serverUrl}/cards/${cardId}`);
   }
 }

@@ -30,6 +30,9 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
   loadingNewCard: boolean = false;
   showNewCard: boolean = false;
   loadingCard: boolean = false;
+  editTodo: boolean[] = [];
+  editDoing: boolean[] = [];
+  editDone: boolean[] = [];
 
   constructor(private service: KanbanBoardService) {}
 
@@ -45,6 +48,10 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
     this.cardsToDo = cards.filter((card: Card) => card.lista == List.TODO);
     this.cardsDoing = cards.filter((card: Card) => card.lista == List.DOING);
     this.cardsDone = cards.filter((card: Card) => card.lista == List.DONE);
+
+    this.editTodo = this.cardsToDo.map(() => false);
+    this.editDoing = this.cardsDoing.map(() => false);
+    this.editDone = this.cardsDone.map(() => false);
   }
 
   getCards(): void {
@@ -70,7 +77,7 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteCard(cardId: number): void {
+  deleteCard(cardId: string): void {
     this.service$ = this.service
       .deleteCards(cardId)
       .subscribe((resp: Card[]) => {
@@ -105,5 +112,19 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
 
       this.updateCard(card);
     }
+  }
+
+  onCickEdit(title: string, content: string): void {
+    this.formCard.patchValue({ titulo: title, conteudo: content });
+  }
+
+  handleEdit(id: string, list: List): void {
+    let card: Card = {
+      id: id,
+      ...this.formCard.value,
+      lista: list,
+    };
+
+    this.updateCard(card);
   }
 }
