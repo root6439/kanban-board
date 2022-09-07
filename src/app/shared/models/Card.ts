@@ -1,6 +1,6 @@
 export class Card {
-  id: number;
+  id?: number;
   titulo: string;
   conteudo: string;
-  lista?: string;
+  lista: string;
 }

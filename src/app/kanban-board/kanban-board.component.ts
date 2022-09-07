@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+import { KanbanBoardService } from './kanban-board.service';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -11,11 +13,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./kanban-board.component.scss'],
 })
 export class KanbanBoardComponent implements OnInit {
-  constructor() {}
+
+  service$: Subscription = new Subscription()
+
+  constructor(private service: KanbanBoardService) {}
 
   ngOnInit(): void {
-    console.log('opa');
-    
+    this.service.getCards().subscribe(cards => {
+      console.log(cards);
+      
+    })
   }
 
   items = ['Carrots', 'Tomatoes', 'Onions', 'Apples', 'Avocados'];

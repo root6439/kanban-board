@@ -24,8 +24,6 @@ export class InterceptorService implements HttpInterceptor {
         .set('Authorization', `Bearer ${localStorage.getItem('token')}`),
     });
 
-    console.log('Intercepted HTTP call', authReq);
-
     return next.handle(authReq);
   }
 }
