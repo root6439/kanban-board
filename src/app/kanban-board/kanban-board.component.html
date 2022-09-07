@@ -3,29 +3,85 @@
   <div class="example-container">
     <h2>To do</h2>
 
-    <div
-      cdkDropList
-      [cdkDropListData]="basket"
-      class="example-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <div class="example-box" *ngFor="let item of basket" cdkDrag>
-        {{ item }}
+    <div *ngIf="cardsToDo.length > 0">
+      <div
+        cdkDropList
+        [cdkDropListData]="cardsToDo"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <mat-card *ngFor="let item of cardsToDo" cdkDrag>
+          <mat-card-title> {{ item.titulo }} </mat-card-title>
+          <mat-card-content>
+            <p>{{ item.conteudo }}</p>
+          </mat-card-content>
+          <mat-card-footer>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </mat-card-footer>
+        </mat-card>
       </div>
     </div>
+
+    <div class="create-button">
+      <button mat-mini-fab color="primary" (click)="showNewCard = true">
+        <mat-icon>create</mat-icon>
+      </button>
+    </div>
+    <form [formGroup]="formCard" (ngSubmit)="createCard()" *ngIf="showNewCard">
+      <mat-card>
+        <mat-card-content>
+          <mat-form-field appearance="legacy">
+            <mat-label>Título</mat-label>
+            <input matInput formControlName="title" />
+          </mat-form-field>
+
+          <mat-form-field appearance="legacy">
+            <mat-label>Conteúdo</mat-label>
+            <textarea matInput formControlName="content"></textarea>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-flat-button color="primary" type="submit">
+            Cadastrar
+          </button>
+          <button
+            mat-button
+            color="primary"
+            type="button"
+            (click)="showNewCard = false"
+          >
+            Cancelar
+          </button>
+        </mat-card-actions>
+        <mat-card-footer>
+          <mat-progress-bar
+            mode="indeterminate"
+            *ngIf="loadingNewCard"
+          ></mat-progress-bar>
+        </mat-card-footer>
+      </mat-card>
+    </form>
   </div>
 
   <div class="example-container">
     <h2>Doing</h2>
 
-    <div
-      cdkDropList
-      [cdkDropListData]="basket"
-      class="example-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <div class="example-box" *ngFor="let item of basket" cdkDrag>
-        {{ item }}
+    <div *ngIf="cardsDoing.length > 0">
+      <div
+        cdkDropList
+        [cdkDropListData]="cardsDoing"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <mat-card *ngFor="let item of cardsDoing" cdkDrag>
+          <mat-card-title> {{ item.titulo }} </mat-card-title>
+          <mat-card-content>
+            <p>{{ item.conteudo }}</p>
+          </mat-card-content>
+          <mat-card-footer>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </mat-card-footer>
+        </mat-card>
       </div>
     </div>
   </div>
@@ -33,14 +89,22 @@
   <div class="example-container">
     <h2>Done</h2>
 
-    <div
-      cdkDropList
-      [cdkDropListData]="basket"
-      class="example-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <div class="example-box" *ngFor="let item of basket" cdkDrag>
-        {{ item }}
+    <div *ngIf="cardsDone.length > 0">
+      <div
+        cdkDropList
+        [cdkDropListData]="cardsDone"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <mat-card *ngFor="let item of cardsDone" cdkDrag>
+          <mat-card-title> {{ item.titulo }} </mat-card-title>
+          <mat-card-content>
+            <p>{{ item.conteudo }}</p>
+          </mat-card-content>
+          <mat-card-footer>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </mat-card-footer>
+        </mat-card>
       </div>
     </div>
   </div>
