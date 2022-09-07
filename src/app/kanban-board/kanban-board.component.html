@@ -39,54 +39,58 @@
           </mat-card-footer>
         </mat-card>
       </div>
-    </div>
 
-    <div class="create-button">
-      <button mat-mini-fab color="primary" (click)="showNewCard = true">
-        <mat-icon>create</mat-icon>
-      </button>
+      <div class="create-button">
+        <button mat-mini-fab color="primary" (click)="showNewCard = true">
+          <mat-icon>create</mat-icon>
+        </button>
+      </div>
+      <form
+        [formGroup]="formCard"
+        (ngSubmit)="createCard()"
+        *ngIf="showNewCard"
+      >
+        <mat-card>
+          <mat-card-title>
+            <mat-form-field appearance="outline" [style.fontSize.px]="14">
+              <mat-label>Título</mat-label>
+              <input matInput formControlName="titulo" />
+              <mat-error *ngIf="formCard.get('titulo').hasError('required')">
+                Campo obrigatório
+              </mat-error>
+            </mat-form-field>
+          </mat-card-title>
+          <mat-card-content>
+            <mat-form-field appearance="outline">
+              <mat-label>Conteúdo</mat-label>
+              <textarea matInput formControlName="conteudo" rows="5"></textarea>
+              <mat-error *ngIf="formCard.get('conteudo').hasError('required')">
+                Campo obrigatório
+              </mat-error>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-flat-button color="primary" type="submit">
+              Cadastrar
+            </button>
+            <button
+              mat-button
+              color="primary"
+              type="button"
+              (click)="showNewCard = false"
+            >
+              Cancelar
+            </button>
+          </mat-card-actions>
+          <mat-card-footer>
+            <mat-progress-bar
+              mode="indeterminate"
+              *ngIf="loadingNewCard"
+            ></mat-progress-bar>
+          </mat-card-footer>
+        </mat-card>
+      </form>
     </div>
-    <form [formGroup]="formCard" (ngSubmit)="createCard()" *ngIf="showNewCard">
-      <mat-card>
-        <mat-card-title>
-          <mat-form-field appearance="outline" [style.fontSize.px]="14">
-            <mat-label>Título</mat-label>
-            <input matInput formControlName="titulo" />
-            <mat-error *ngIf="formCard.get('titulo').hasError('required')">
-              Campo obrigatório
-            </mat-error>
-          </mat-form-field>
-        </mat-card-title>
-        <mat-card-content>
-          <mat-form-field appearance="outline">
-            <mat-label>Conteúdo</mat-label>
-            <textarea matInput formControlName="conteudo" rows="5"></textarea>
-            <mat-error *ngIf="formCard.get('conteudo').hasError('required')">
-              Campo obrigatório
-            </mat-error>
-          </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions align="end">
-          <button mat-flat-button color="primary" type="submit">
-            Cadastrar
-          </button>
-          <button
-            mat-button
-            color="primary"
-            type="button"
-            (click)="showNewCard = false"
-          >
-            Cancelar
-          </button>
-        </mat-card-actions>
-        <mat-card-footer>
-          <mat-progress-bar
-            mode="indeterminate"
-            *ngIf="loadingNewCard"
-          ></mat-progress-bar>
-        </mat-card-footer>
-      </mat-card>
-    </form>
   </div>
 
   <div class="example-container">
