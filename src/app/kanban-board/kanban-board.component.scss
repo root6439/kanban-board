@@ -32,6 +32,12 @@ mat-form-field {
   vertical-align: top;
 }
 
+mat-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 mat-card {
   border: solid 1px #ccc;
   margin: 8px 0;
@@ -43,7 +49,7 @@ p {
 }
 
 .example-list {
-  min-height: 60px;
+  min-height: 100%;
   border-radius: 4px;
   overflow: hidden;
   display: block;

@@ -6,7 +6,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { List } from '../shared/enums/List.enum';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -15,7 +15,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './kanban-board.component.html',
   styleUrls: ['./kanban-board.component.scss'],
 })
-export class KanbanBoardComponent implements OnInit {
+export class KanbanBoardComponent implements OnInit, OnDestroy {
   cardsToDo: Card[] = [];
   cardsDoing: Card[] = [];
   cardsDone: Card[] = [];
@@ -37,6 +37,10 @@ export class KanbanBoardComponent implements OnInit {
     this.getCards();
   }
 
+  ngOnDestroy(): void {
+    this.service$.unsubscribe();
+  }
+
   disaggregateCards(cards: Card[]): void {
     this.cardsToDo = cards.filter((card: Card) => card.lista == List.TODO);
     this.cardsDoing = cards.filter((card: Card) => card.lista == List.DOING);
@@ -44,7 +48,7 @@ export class KanbanBoardComponent implements OnInit {
   }
 
   getCards(): void {
-    this.service.getCards().subscribe((cards: Card[]) => {
+    this.service$ = this.service.getCards().subscribe((cards: Card[]) => {
       this.disaggregateCards(cards);
     });
   }
@@ -60,7 +64,13 @@ export class KanbanBoardComponent implements OnInit {
     });
   }
 
-  drop(event: CdkDragDrop<Card[]>) {
+  updateCard(card: Card): void {
+    this.service$ = this.service.putCards(card).subscribe((cards: Card) => {
+      this.getCards();
+    });
+  }
+
+  drop(event: CdkDragDrop<Card[]>, target: number) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -74,6 +84,18 @@ export class KanbanBoardComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+
+      let card: Card = event.container.data[event.currentIndex];
+
+      let aux: { [key: number]: List } = {
+        1: List.TODO,
+        2: List.DOING,
+        3: List.DONE,
+      };
+
+      card.lista = aux[target];
+
+      this.updateCard(card);
     }
   }
 }
