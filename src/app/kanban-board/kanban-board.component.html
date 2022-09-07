@@ -67,20 +67,20 @@
             </mat-card-content>
             <mat-card-actions align="end">
               <button
-                mat-flat-button
+                mat-icon-button
                 color="primary"
                 type="submit"
                 [disabled]="formCard.invalid"
               >
-                Cadastrar
+                <mat-icon>save</mat-icon>
               </button>
               <button
-                mat-button
+                mat-icon-button
                 color="primary"
                 type="button"
                 (click)="editTodo[i] = false; formCard.reset()"
               >
-                Cancelar
+                <mat-icon color="warn">block</mat-icon>
               </button>
             </mat-card-actions>
           </form>
@@ -96,12 +96,12 @@
 
       <div class="create-button">
         <button
-          mat-mini-fab
+          mat-icon-button
           color="primary"
           (click)="showNewCard = true; formCard.reset()"
           [disabled]="disableEditButton"
         >
-          <mat-icon>create</mat-icon>
+          <mat-icon>add_circle</mat-icon>
         </button>
       </div>
 
@@ -132,20 +132,20 @@
           </mat-card-content>
           <mat-card-actions align="end">
             <button
-              mat-flat-button
+              mat-icon-button
               color="primary"
               type="submit"
               [disabled]="formCard.invalid"
             >
-              Cadastrar
+              <mat-icon>save</mat-icon>
             </button>
             <button
-              mat-button
+              mat-icon-button
               color="primary"
               type="button"
               (click)="showNewCard = false; formCard.reset()"
             >
-              Cancelar
+              <mat-icon color="warn">block</mat-icon>
             </button>
           </mat-card-actions>
           <mat-card-footer>
@@ -229,20 +229,20 @@
             </mat-card-content>
             <mat-card-actions align="end">
               <button
-                mat-flat-button
+                mat-icon-button
                 color="primary"
                 type="submit"
                 [disabled]="formCard.invalid"
               >
-                Cadastrar
+                <mat-icon>save</mat-icon>
               </button>
               <button
-                mat-button
+                mat-icon-button
                 color="primary"
                 type="button"
                 (click)="editDoing[i] = false; formCard.reset()"
               >
-                Cancelar
+                <mat-icon color="warn">block</mat-icon>
               </button>
             </mat-card-actions>
           </form>
@@ -324,20 +324,20 @@
             </mat-card-content>
             <mat-card-actions align="end">
               <button
-                mat-flat-button
+                mat-icon-button
                 color="primary"
                 type="submit"
                 [disabled]="formCard.invalid"
               >
-                Cadastrar
+                <mat-icon>save</mat-icon>
               </button>
               <button
-                mat-button
+                mat-icon-button
                 color="primary"
                 type="button"
                 (click)="editDone[i] = false; formCard.reset()"
               >
-                Cancelar
+                <mat-icon color="warn">block</mat-icon>
               </button>
             </mat-card-actions>
           </form>
