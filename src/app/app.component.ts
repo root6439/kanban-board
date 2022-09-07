@@ -19,14 +19,18 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private loginService: LoginService) {}
 
   ngOnInit(): void {
+    this.login();
+  }
+
+  ngOnDestroy(): void {
+    this.login$.unsubscribe();
+  }
+
+  login(): void {
     this.login$ = this.loginService
       .login(this.data)
       .subscribe((resp: string) => {
         localStorage.setItem('token', resp);
       });
-  }
-
-  ngOnDestroy(): void {
-    this.login$.unsubscribe();
   }
 }
