@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private loginService: LoginService) {}
 
   ngOnInit(): void {
-    this.login();
+    // this.login();
   }
 
   ngOnDestroy(): void {

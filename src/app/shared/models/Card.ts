@@ -1,8 +1,8 @@
-import { List } from '../enums/List.enum';
+import { CardStatus } from '../enums/CardStatus.enum';
 
 export class Card {
   id?: string;
-  titulo: string;
-  conteudo: string;
-  lista: List;
+  title: string;
+  content: string;
+  status: CardStatus;
 }

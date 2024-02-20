@@ -1,4 +1,4 @@
-import { List } from '../enums/List.enum';
+import { List } from '../enums/CardStatus.enum';
 import { Card } from '../models/Card';
 
 export const MOCKED_CARDS: Card[] = [

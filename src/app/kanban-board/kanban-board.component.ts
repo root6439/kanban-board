@@ -7,7 +7,7 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { List } from '../shared/enums/List.enum';
+import { CardStatus } from '../shared/enums/CardStatus.enum';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -23,8 +23,8 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
   service$: Subscription = new Subscription();
 
   formCard: FormGroup = new FormGroup({
-    titulo: new FormControl<string>(null, Validators.required),
-    conteudo: new FormControl<string>(null, Validators.required),
+    title: new FormControl<string>(null, Validators.required),
+    content: new FormControl<string>(''),
   });
 
   loadingNewCard: boolean = false;
@@ -45,9 +45,17 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
   }
 
   disaggregateCards(cards: Card[]): void {
-    this.cardsToDo = cards.filter((card: Card) => card.lista == List.TODO);
-    this.cardsDoing = cards.filter((card: Card) => card.lista == List.DOING);
-    this.cardsDone = cards.filter((card: Card) => card.lista == List.DONE);
+    console.log(cards);
+
+    this.cardsToDo = cards.filter(
+      (card: Card) => card.status == CardStatus.TODO
+    );
+    this.cardsDoing = cards.filter(
+      (card: Card) => card.status == CardStatus.DOING
+    );
+    this.cardsDone = cards.filter(
+      (card: Card) => card.status == CardStatus.DONE
+    );
 
     this.editTodo = this.cardsToDo.map(() => false);
     this.editDoing = this.cardsDoing.map(() => false);
@@ -62,9 +70,11 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
 
   createCard(): void {
     let card: Card = {
-      ...this.formCard.value,
-      lista: List.TODO,
+      title: this.formCard.get('title').value,
+      content: this.formCard.get('content').value ?? '',
+      status: CardStatus.TODO,
     };
+
     this.service$ = this.service.postCards(card).subscribe((resp: Card) => {
       this.getCards();
       this.showNewCard = false;
@@ -81,7 +91,7 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
     this.service$ = this.service
       .deleteCards(cardId)
       .subscribe((resp: Card[]) => {
-        this.disaggregateCards(resp);
+        this.getCards();
       });
   }
 
@@ -102,13 +112,13 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
 
       let card: Card = event.container.data[event.currentIndex];
 
-      let aux: { [key: number]: List } = {
-        1: List.TODO,
-        2: List.DOING,
-        3: List.DONE,
+      let aux: { [key: number]: CardStatus } = {
+        1: CardStatus.TODO,
+        2: CardStatus.DOING,
+        3: CardStatus.DONE,
       };
 
-      card.lista = aux[target];
+      card.status = aux[target];
 
       this.updateCard(card);
     }
@@ -118,11 +128,11 @@ export class KanbanBoardComponent implements OnInit, OnDestroy {
     this.formCard.patchValue({ titulo: title, conteudo: content });
   }
 
-  handleEdit(id: string, list: List): void {
+  handleEdit(id: string, status: CardStatus): void {
     let card: Card = {
       id: id,
       ...this.formCard.value,
-      lista: list,
+      status: status,
     };
 
     this.updateCard(card);

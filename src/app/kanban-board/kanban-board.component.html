@@ -12,13 +12,13 @@
       <div *ngIf="cardsToDo.length > 0">
         <mat-card *ngFor="let item of cardsToDo; let i = index" cdkDrag>
           <mat-card-title *ngIf="!editTodo[i]">
-            {{ item.titulo }}
+            {{ item.title }}
             <div>
               <button
                 mat-icon-button
                 color="primary"
                 (click)="
-                  editTodo[i] = true; onClickEdit(item.titulo, item.conteudo)
+                  editTodo[i] = true; onClickEdit(item.title, item.content)
                 "
                 [disabled]="disableEditButton"
               >
@@ -34,19 +34,19 @@
             </div>
           </mat-card-title>
           <mat-card-content *ngIf="!editTodo[i]">
-            <p>{{ item.conteudo }}</p>
+            <p>{{ item.content }}</p>
           </mat-card-content>
 
           <form
             [formGroup]="formCard"
-            (ngSubmit)="handleEdit(item.id, item.lista)"
+            (ngSubmit)="handleEdit(item.id, item.status)"
             *ngIf="editTodo[i]"
           >
             <mat-card-content>
               <mat-form-field appearance="outline" [style.fontSize.px]="14">
                 <mat-label>Título</mat-label>
-                <input matInput formControlName="titulo" />
-                <mat-error *ngIf="formCard.get('titulo').hasError('required')">
+                <input matInput formControlName="title" />
+                <mat-error *ngIf="formCard.get('title').hasError('required')">
                   Campo obrigatório
                 </mat-error>
               </mat-form-field>
@@ -55,14 +55,9 @@
                 <mat-label>Conteúdo</mat-label>
                 <textarea
                   matInput
-                  formControlName="conteudo"
+                  formControlName="content"
                   rows="5"
                 ></textarea>
-                <mat-error
-                  *ngIf="formCard.get('conteudo').hasError('required')"
-                >
-                  Campo obrigatório
-                </mat-error>
               </mat-form-field>
             </mat-card-content>
             <mat-card-actions align="end">
@@ -115,8 +110,8 @@
           <mat-card-title>
             <mat-form-field appearance="outline" [style.fontSize.px]="14">
               <mat-label>Título</mat-label>
-              <input matInput formControlName="titulo" />
-              <mat-error *ngIf="formCard.get('titulo').hasError('required')">
+              <input matInput formControlName="title" />
+              <mat-error *ngIf="formCard.get('title').hasError('required')">
                 Campo obrigatório
               </mat-error>
             </mat-form-field>
@@ -124,10 +119,7 @@
           <mat-card-content>
             <mat-form-field appearance="outline">
               <mat-label>Conteúdo</mat-label>
-              <textarea matInput formControlName="conteudo" rows="5"></textarea>
-              <mat-error *ngIf="formCard.get('conteudo').hasError('required')">
-                Campo obrigatório
-              </mat-error>
+              <textarea matInput formControlName="content" rows="5"></textarea>
             </mat-form-field>
           </mat-card-content>
           <mat-card-actions align="end">
@@ -174,13 +166,13 @@
       <div *ngIf="cardsDoing.length > 0">
         <mat-card *ngFor="let item of cardsDoing; let i = index" cdkDrag>
           <mat-card-title *ngIf="!editDoing[i]">
-            {{ item.titulo }}
+            {{ item.title }}
             <div>
               <button
                 mat-icon-button
                 color="primary"
                 (click)="
-                  editDoing[i] = true; onClickEdit(item.titulo, item.conteudo)
+                  editDoing[i] = true; onClickEdit(item.title, item.content)
                 "
                 [disabled]="disableEditButton"
               >
@@ -197,19 +189,19 @@
           </mat-card-title>
 
           <mat-card-content *ngIf="!editDoing[i]">
-            <p>{{ item.conteudo }}</p>
+            <p>{{ item.content }}</p>
           </mat-card-content>
 
           <form
             [formGroup]="formCard"
-            (ngSubmit)="handleEdit(item.id, item.lista)"
+            (ngSubmit)="handleEdit(item.id, item.status)"
             *ngIf="editDoing[i]"
           >
             <mat-card-content>
               <mat-form-field appearance="outline" [style.fontSize.px]="14">
                 <mat-label>Título</mat-label>
-                <input matInput formControlName="titulo" />
-                <mat-error *ngIf="formCard.get('titulo').hasError('required')">
+                <input matInput formControlName="title" />
+                <mat-error *ngIf="formCard.get('title').hasError('required')">
                   Campo obrigatório
                 </mat-error>
               </mat-form-field>
@@ -218,14 +210,9 @@
                 <mat-label>Conteúdo</mat-label>
                 <textarea
                   matInput
-                  formControlName="conteudo"
+                  formControlName="content"
                   rows="5"
                 ></textarea>
-                <mat-error
-                  *ngIf="formCard.get('conteudo').hasError('required')"
-                >
-                  Campo obrigatório
-                </mat-error>
               </mat-form-field>
             </mat-card-content>
             <mat-card-actions align="end">
@@ -271,13 +258,13 @@
       <div *ngIf="cardsDone.length > 0">
         <mat-card *ngFor="let item of cardsDone; let i = index" cdkDrag>
           <mat-card-title *ngIf="!editDone[i]">
-            {{ item.titulo }}
+            {{ item.title }}
             <div>
               <button
                 mat-icon-button
                 color="primary"
                 (click)="
-                  editDone[i] = true; onClickEdit(item.titulo, item.conteudo)
+                  editDone[i] = true; onClickEdit(item.title, item.content)
                 "
                 [disabled]="disableEditButton"
               >
@@ -293,19 +280,19 @@
             </div>
           </mat-card-title>
           <mat-card-content *ngIf="!editDone[i]">
-            <p>{{ item.conteudo }}</p>
+            <p>{{ item.content }}</p>
           </mat-card-content>
 
           <form
             [formGroup]="formCard"
-            (ngSubmit)="handleEdit(item.id, item.lista)"
+            (ngSubmit)="handleEdit(item.id, item.status)"
             *ngIf="editDone[i]"
           >
             <mat-card-content>
               <mat-form-field appearance="outline" [style.fontSize.px]="14">
                 <mat-label>Título</mat-label>
-                <input matInput formControlName="titulo" />
-                <mat-error *ngIf="formCard.get('titulo').hasError('required')">
+                <input matInput formControlName="title" />
+                <mat-error *ngIf="formCard.get('title').hasError('required')">
                   Campo obrigatório
                 </mat-error>
               </mat-form-field>
@@ -314,14 +301,9 @@
                 <mat-label>Conteúdo</mat-label>
                 <textarea
                   matInput
-                  formControlName="conteudo"
+                  formControlName="content"
                   rows="5"
                 ></textarea>
-                <mat-error
-                  *ngIf="formCard.get('conteudo').hasError('required')"
-                >
-                  Campo obrigatório
-                </mat-error>
               </mat-form-field>
             </mat-card-content>
             <mat-card-actions align="end">

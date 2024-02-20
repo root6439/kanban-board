@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
 import { of } from 'rxjs';
-import { List } from '../shared/enums/List.enum';
+import { List } from '../shared/enums/CardStatus.enum';
 import { MOCKED_CARDS } from '../shared/mocks/Cards';
 import { KanbanBoardRoutingModule } from './kanban-board-routing.module';
 

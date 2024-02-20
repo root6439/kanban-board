@@ -11,21 +11,21 @@ export class KanbanBoardService {
   constructor(private http: HttpClient) {}
 
   getCards(): Observable<Card[]> {
-    return this.http.get<Card[]>(`${environment.serverUrl}/cards`);
+    return this.http.get<Card[]>(`${environment.serverUrl}/card`);
   }
 
   postCards(card: Card): Observable<Card> {
-    return this.http.post<Card>(`${environment.serverUrl}/cards`, card);
+    return this.http.post<Card>(`${environment.serverUrl}/card`, card);
   }
 
   putCards(card: Card): Observable<Card> {
     return this.http.put<Card>(
-      `${environment.serverUrl}/cards/${card.id}`,
+      `${environment.serverUrl}/card/${card.id}`,
       card
     );
   }
 
   deleteCards(cardId: string): Observable<Card[]> {
-    return this.http.delete<Card[]>(`${environment.serverUrl}/cards/${cardId}`);
+    return this.http.delete<Card[]>(`${environment.serverUrl}/card/${cardId}`);
   }
 }
